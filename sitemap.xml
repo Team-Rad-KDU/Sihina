@@ -2,30 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://team-red-kdu.github.io/Sihina/</loc>
+    <loc>https://team-rad-kdu.github.io/Sihina/</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/og-image.jpg</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/hero/01.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/hero/02.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/hero/03.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/hero/04.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/hero/05.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/01.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/02.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/03.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/04.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/05.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/06.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/07.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/08.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/09.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/10.webp</image:loc></image:image>
-    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/11.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/og-image.jpg</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/hero/01.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/hero/02.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/hero/03.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/hero/04.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/hero/05.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/gallery/01.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/gallery/02.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/gallery/03.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/gallery/04.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/gallery/05.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/gallery/06.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/gallery/07.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/gallery/08.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/gallery/09.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/gallery/10.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-rad-kdu.github.io/Sihina/images/gallery/11.webp</image:loc></image:image>
   </url>
   <url>
-    <loc>https://team-red-kdu.github.io/Sihina/llms.txt</loc>
+    <loc>https://team-rad-kdu.github.io/Sihina/llms.txt</loc>
     <lastmod>2026-10-04</lastmod>
     <priority>0.3</priority>
   </url>
