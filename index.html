@@ -57,12 +57,12 @@
 <link rel="manifest" href="site.webmanifest">
 
 <!-- Performance: everything (fonts, photos) is served from this site, no third-party hosts.
-     Preload the first hero photo (the LCP image, phone or desktop size), the main fonts and the share image. -->
+     Preload the first hero photo (the LCP image, phone or desktop size) and the main fonts.
+     The share image (og-image.jpg) is only fetched by social networks, so it is not preloaded. -->
 <link rel="preload" as="image" type="image/webp" href="images/hero/md/01.webp" media="(max-width: 1080px)" fetchpriority="high">
 <link rel="preload" as="image" type="image/webp" href="images/hero/01.webp" media="(min-width: 1081px)" fetchpriority="high">
 <link rel="preload" as="font" type="font/woff2" href="fonts/bricolage-grotesque-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/atkinson-hyperlegible-latin-400.woff2" crossorigin>
-<link rel="preload" as="image" href="og-image.jpg" fetchpriority="low">
 
 <!-- Structured data: lets Google, Bing and AI assistants (ChatGPT, Gemini, Perplexity, Claude) understand who, what, where, when -->
 <script type="application/ld+json">
