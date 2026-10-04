@@ -7,22 +7,22 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image><image:loc>https://team-red-kdu.github.io/Sihina/og-image.jpg</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/hero/01</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/hero/02</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/hero/03</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/hero/04</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/hero/05</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/gallery/01</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/gallery/02</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/gallery/03</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/gallery/04</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/gallery/05</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/gallery/06</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/gallery/07</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/gallery/08</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/gallery/09</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/gallery/10</image:loc></image:image>
-    <image:image><image:loc>https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1600/sihina/gallery/11</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/hero/01.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/hero/02.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/hero/03.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/hero/04.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/hero/05.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/01.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/02.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/03.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/04.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/05.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/06.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/07.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/08.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/09.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/10.webp</image:loc></image:image>
+    <image:image><image:loc>https://team-red-kdu.github.io/Sihina/images/gallery/11.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://team-red-kdu.github.io/Sihina/llms.txt</loc>
