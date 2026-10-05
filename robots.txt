@@ -1,4 +1,4 @@
-# SIHINA 2026/27 – Team Rad KDU
+# SIHINA 2026 – Team Rad KDU
 # Everyone (search engines and AI assistants) is welcome to read and cite this site.
 User-agent: *
 Allow: /

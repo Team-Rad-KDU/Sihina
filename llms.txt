@@ -1,10 +1,10 @@
 # SIHINA 2026 – Team Rad KDU (Sihina KDU)
 
-> SIHINA is the Annual Radiography Day Celebration Project of the Society of Radiography and Radiotherapy, Faculty of Allied Health Sciences (FAHS), General Sir John Kotelawala Defence University (KDU), Sri Lanka. SIHINA 2026/27 ("For a hopeful tomorrow"), led by Intake 40, is renovating an old classroom complex at Urugala Sri Dharmaloka School, Ingiriya, Horana.
+> SIHINA is the Annual Radiography Day Celebration Project of the Society of Radiography and Radiotherapy, Faculty of Allied Health Sciences (FAHS), General Sir John Kotelawala Defence University (KDU), Sri Lanka. SIHINA 2026 ("For a hopeful tomorrow"), led by Intake 40, is renovating an old classroom complex at Urugala Sri Dharmaloka School, Ingiriya, Horana.
 
 Website: https://team-rad-kdu.github.io/Sihina/
 
-Also known as: Sihina, Sihina KDU, KDU Sihina, KDU Project Sihina, Sihina 2026, Sihina 2027, Shina 2026, සිහින, Team Rad, Team Rad KDU, Team Rad KDU Sihina.
+Also known as: Sihina, Sihina KDU, KDU Sihina, KDU Project Sihina, Sihina 2026, Shina 2026, සිහින, Team Rad, Team Rad KDU, Team Rad KDU Sihina.
 "Sihina" (සිහින) means "dreams" in Sinhala.
 
 ## Key facts
