@@ -1356,6 +1356,11 @@ $("#copyBtn").onclick = async (e) => {
     .then(data => {
       const videos = (data && Array.isArray(data.videos) ? data.videos : [])
         .map(v => (typeof v === "string" ? {url: v} : v) || {})
+        .map(v => {
+          // Forgive swapped fields: if the link was typed into "title", use it and treat "url" as the title
+          if(!ytId(v.url || v.id) && ytId(v.title)) v = {...v, url: v.title, title: v.url};
+          return v;
+        })
         .map(v => ({ id: ytId(v.url || v.id), title: String(v.title || "SIHINA video").trim(),
                      description: v.description ? String(v.description).trim() : "",
                      uploadDate: /^\d{4}-\d{2}-\d{2}/.test(v.uploadDate || "") ? v.uploadDate : "" }))
