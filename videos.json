@@ -30,5 +30,10 @@
     "at https://jsonlint.com if the video does not appear. A broken file simply hides the video area.",
     "The video must be Public or Unlisted on YouTube, with embedding allowed (YouTube Studio → video → Details → Show more → Allow embedding)."
   ],
-  "videos": []
+  "videos": [
+    {
+      "url": "https://youtu.be/ztVV54sPOns",
+      "title": "SIHINA 2026 – Team Rad KDU"
+    }
+  ]
 }
