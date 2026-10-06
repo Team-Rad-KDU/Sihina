@@ -1320,24 +1320,43 @@ $("#copyBtn").onclick = async (e) => {
     // maxres thumbnails don't exist for every video; YouTube then serves a 120px placeholder
     img.onload = () => { if(img.naturalWidth <= 120) img.src = thumb(v.id, "hqdefault"); };
     img.onerror = () => { img.onerror = () => img.remove(); img.src = thumb(v.id, "hqdefault"); };
-    const play = document.createElement("span"); play.className = "video-play"; play.setAttribute("aria-hidden", "true");
-    btn.append(img, play);
-    btn.onclick = () => {
-      const f = document.createElement("iframe");
-      f.src = `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0&playsinline=1`;
-      f.title = v.title;
-      f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-      f.allowFullscreen = true; f.referrerPolicy = "strict-origin-when-cross-origin";
-      frame.replaceChildren(f); f.focus();
-    };
+    const icon = document.createElement("span"); icon.className = "video-play"; icon.setAttribute("aria-hidden", "true");
+    btn.append(img, icon);
+    btn.onclick = () => play(v, false, true);
     frame.append(btn);
     info.replaceChildren();
     const t = document.createElement("b"); t.textContent = v.title; info.append(t);
     if(v.description){ const d = document.createElement("span"); d.textContent = v.description; info.append(d); }
   }
-  function select(videos, i){
-    poster(videos[i]);
+  // Load the YouTube player. muted=true is required for autoplay without a click (browser rule).
+  let player = null, autoPaused = false;
+  function play(v, muted, focus){
+    const f = document.createElement("iframe");
+    f.src = `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1${muted ? "&mute=1" : ""}&rel=0&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}`;
+    f.title = v.title;
+    f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    f.allowFullscreen = true; f.referrerPolicy = "strict-origin-when-cross-origin";
+    frame.replaceChildren(f); player = f; autoPaused = false;
+    if(focus) f.focus();
+  }
+  // Pause/resume through the YouTube iframe API (no extra script needed)
+  const command = func => player && player.contentWindow &&
+    player.contentWindow.postMessage(JSON.stringify({event: "command", func, args: []}), "*");
+  function select(videos, i, start){
+    player = null; poster(videos[i]);
     [...list.children].forEach((b,k) => b.setAttribute("aria-current", k === i));
+    if(start) play(videos[i], false, false);
+  }
+  // Autoplay (muted) when the video area scrolls into view; pause when it scrolls away.
+  // Skipped when the visitor prefers reduced motion or has data saver on, or when videos.json sets "autoplay": false.
+  function autoplay(videos){
+    const io = new IntersectionObserver(([e]) => {
+      if(e.isIntersecting){
+        if(!player) play(videos[0], true, false);
+        else if(autoPaused){ command("playVideo"); autoPaused = false; }
+      } else if(player){ command("pauseVideo"); autoPaused = true; }
+    }, {threshold: .5});
+    io.observe(frame);
   }
   // Tell search engines about the videos (needs title + uploadDate)
   function structuredData(videos){
@@ -1369,12 +1388,14 @@ $("#copyBtn").onclick = async (e) => {
       if(videos.length > 1){
         list.innerHTML = videos.map((v,i) =>
           `<button type="button" role="listitem" aria-label="Show video ${i+1}: ${v.title.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}"><img src="${thumb(v.id, "mqdefault")}" alt="" loading="lazy" decoding="async" onerror="this.remove()"></button>`).join("");
-        [...list.children].forEach((b,i) => b.onclick = () => select(videos, i));
+        [...list.children].forEach((b,i) => b.onclick = () => select(videos, i, true));
         list.hidden = false;
       }
       select(videos, 0);
       block.hidden = false;
       structuredData(videos);
+      const quiet = matchMedia("(prefers-reduced-motion: reduce)").matches || (navigator.connection && navigator.connection.saveData);
+      if(data.autoplay !== false && !quiet && "IntersectionObserver" in window) autoplay(videos);
     })
     .catch(() => block.remove());
 })();

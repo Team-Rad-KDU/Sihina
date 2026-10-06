@@ -26,12 +26,17 @@
     "MORE THAN ONE VIDEO: add more { … } entries separated by commas. The first one is shown in the player;",
     "the others appear as small thumbnails under it that visitors can click to switch videos.",
     "",
+    "AUTOPLAY: the first video starts playing by itself (muted – browsers only allow muted autoplay) when visitors",
+    "scroll to it, and pauses when they scroll away. Visitors can unmute with the speaker button.",
+    "To turn autoplay off, change  \"autoplay\": true  to  \"autoplay\": false  below.",
+    "",
     "TO HIDE THE VIDEO AREA AGAIN: make the list empty:  \"videos\": []",
     "",
     "RULES: keep the double quotes, put a comma between entries but not after the last one, and check the file",
     "at https://jsonlint.com if the video does not appear. A broken file simply hides the video area.",
     "The video must be Public or Unlisted on YouTube, with embedding allowed (YouTube Studio → video → Details → Show more → Allow embedding)."
   ],
+  "autoplay": true,
   "videos": [
     {
       "url": "https://youtube.com/shorts/fyWBiSUgfFA?si=TM_gZ0PmKndd9lRc",
