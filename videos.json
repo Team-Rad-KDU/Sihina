@@ -13,6 +13,8 @@
     "    }",
     "  ]",
     "",
+    "IMPORTANT: \"url\" is the YouTube LINK (starts with https://) and \"title\" is the video's NAME. Don't swap them.",
+    "",
     "FIELDS:",
     "  url          (required) Any normal YouTube link works: youtube.com/watch?v=…, youtu.be/…,",
     "               youtube.com/shorts/…, youtube.com/live/…, youtube.com/embed/…, or just the 11-character video ID.",
@@ -32,12 +34,8 @@
   ],
   "videos": [
     {
-      "url": "Congratulations Begins | Sihina 2026",
-      "title": "https://youtube.com/shorts/fyWBiSUgfFA?si=TM_gZ0PmKndd9lRc"
-    },
-    {
-      "url": "",
-      "title": ""
+      "url": "https://youtube.com/shorts/fyWBiSUgfFA?si=TM_gZ0PmKndd9lRc",
+      "title": "Congratulations Begins | Sihina 2026"
     }
   ]
 }
