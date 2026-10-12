@@ -481,6 +481,17 @@ nav a{text-decoration:none;display:block;position:relative}
 .btn-o{border-color:rgba(255,255,255,.6);color:var(--on-board)}
 .btn-o:hover{border-color:var(--on-board);background:rgba(255,255,255,.12)}
 .btn-g{background:var(--btn2);color:var(--ink)}
+/* Donate: blue button with a soft pulsing blue glow so it stands out */
+.btn-donate{background:linear-gradient(135deg,#2D8CFF,var(--board) 55%,var(--accent-ink));color:#fff;box-shadow:0 0 0 3px rgba(24,119,242,.25),0 0 22px rgba(24,119,242,.6)}
+.btn-donate:hover{box-shadow:0 0 0 4px rgba(24,119,242,.35),0 0 32px rgba(24,119,242,.8)}
+.btn-donate:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.motion .btn-donate{animation:donateGlow 2.2s ease-in-out infinite}
+@keyframes donateGlow{
+  0%,100%{box-shadow:0 0 0 2px rgba(24,119,242,.25),0 0 14px rgba(24,119,242,.45)}
+  50%{box-shadow:0 0 0 7px rgba(24,119,242,.12),0 0 34px rgba(24,119,242,.85)}
+}
+.hdr-donate{display:none}
+@media (min-width:820px){nav{margin-left:auto}.hdr-donate{display:inline-flex;min-height:40px;padding:.45rem 1.25rem;margin-left:1.6rem}}
 .arrow{display:inline-block;transition:transform .25s var(--ease)}
 .btn:hover .arrow{transform:translate(2px,-2px)}
 .btn-o:hover .arrow{transform:translateY(3px)}
@@ -711,7 +722,7 @@ footer a{color:var(--accent-ink)}
 @supports (backdrop-filter:blur(8px)){.dock{background:rgba(255,255,255,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}}
 .dock.hide{transform:translateY(110%)}
 .dock .btn{flex:1}
-.dock .btn-y{background:var(--board);color:#fff;box-shadow:none}
+.dock .btn-y{background:#fff;color:var(--accent-ink);border-color:var(--board);box-shadow:none}
 @media (min-width:820px){.dock{display:none}}
 
 /* Toast */
@@ -741,6 +752,7 @@ footer a{color:var(--accent-ink)}
         <li><a href="#support">Support</a></li>
       </ul>
     </nav>
+    <a class="btn btn-donate hdr-donate" href="#support">Donate</a>
   </div>
   <div class="progress" id="progress"></div>
 </header>
@@ -886,7 +898,7 @@ footer a{color:var(--accent-ink)}
       <h2>SIHINA through the years.</h2>
     </div>
     <ul class="history">
-      <li class="reveal next" style="--d:0"><div class="yr">2026<small>Intake 40</small></div><p><b>Urugala Sri Dharmaloka School</b><span>Classroom complex renovation. This year's project.</span></p></li>
+      <li class="reveal next" style="--d:0"><div class="yr">2026<small>Intake 40</small></div><p><b>Urugala Sri Dharmaloka School</b><span>Classroom complex renovation. This year's project.</span><span class="strip" data-intake="40"></span></p></li>
       <li class="reveal" style="--d:1"><div class="yr">2024<small>Intake 38</small></div><p><b>Illukovita Primary School</b><span>Renovated a three-classroom building and donated 120+ stationery packs.</span><span class="strip" data-intake="38"></span><button type="button" class="more" data-intake="38">Read the story ›</button></p></li>
       <li class="reveal" style="--d:0"><div class="yr">2023<small>Intake 37</small></div><p><b>Rehabilitation Home for Differently Abled, Ambanpitiya</b><span>Classroom renovation, painting, wiring and essential items for around 40 residents.</span><span class="strip" data-intake="37"></span><button type="button" class="more" data-intake="37">Read the story ›</button></p></li>
       <li class="reveal" style="--d:1"><div class="yr">2021<small>Intake 36</small></div><p><b>Mahindagama Village, Polonnaruwa</b><span>RO water filtration system bringing safe drinking water to 80+ families.</span><span class="strip" data-intake="36"></span><button type="button" class="more" data-intake="36">Read the story ›</button></p></li>
@@ -984,14 +996,14 @@ footer a{color:var(--accent-ink)}
       <p>Annual Radiography Day Celebration Project<br>Society of Radiography and Radiotherapy, Intake 40, KDU</p>
       <p>Department of Radiography and Radiotherapy, Faculty of Allied Health Sciences,<br><a href="https://www.kdu.ac.lk/" target="_blank" rel="noopener">General Sir John Kotelawala Defence University</a>, Sri Lanka</p>
       <p class="tags">#TEAMRAD #TeamRadKDU #SihinaKDU #Sihina2026 #KDU #FAHS #RDY</p>
-      <p>© 2026 Team Rad KDU · Last updated <time datetime="2026-10-04">4 October 2026</time></p>
+      <p>© 2026 Team Rad KDU · Last updated <time datetime="2026-10-12">12 October 2026</time></p>
     </div>
     <a class="top-link" href="#top">Back to top <span class="arrow" aria-hidden="true">↑</span></a>
   </div>
 </footer>
 
 <div class="dock" id="dock">
-  <a class="btn btn-g" href="#support">Donate</a>
+  <a class="btn btn-donate" href="#support">Donate</a>
   <a class="btn btn-y" href="https://forms.gle/V6UBUqEMEiU7rNVE8" target="_blank" rel="noopener">Sponsor <span class="arrow" aria-hidden="true">↗</span></a>
 </div>
 
@@ -1053,6 +1065,7 @@ const PAGES = SHOW_PROPOSAL_PAGES ? [1,3,4,5,9,10,11,12,13,14].map(n => ({ thumb
 
 /* "SIHINA through the years" stories and photo strips: Cloudinary sihina/history/intake-NN/ */
 const INTAKES = {
+  "40": { kicker:"SIHINA 2026 · Intake 40", title:"Urugala Sri Dharmaloka School", photos:PHOTOS, text:[] },
   "38": { kicker:"SIHINA 2024 · Intake 38", title:"Illukovita Primary School", photos:seq("history/intake-38", 11).map(pic), text:[
     "SIHINA 2024 was a community service initiative organized by the students of Intake 38, Department of Radiography and Radiotherapy, Faculty of Allied Health Sciences, General Sir John Kotelawala Defence University, in celebration of World Radiography Day.",
     "As part of the project, the students identified the need to improve the facilities at Illukovita Primary School. A building consisting of three classrooms was renovated and prepared to provide a more suitable and comfortable learning environment for the students. The renovated building was subsequently handed over to the school principal for the students’ use.",
