@@ -1025,13 +1025,15 @@ footer a{color:var(--accent-ink)}
    (e.g. sihina/history/intake-31/05). Cloudinary resizes each one to the size it is shown at and picks
    the best format (AVIF/WebP) and quality for each browser (f_auto,q_auto).
    To add photos, upload them to Cloudinary as sihina/<folder>/NN and bump the counts below.
-   The hero and the 2019–2024 photos also have local copies in images/<folder>/ (NN.webp, thumb/NN.webp,
+   The hero, the first 11 SIHINA 2026 photos (images/gallery/) and the 2019–2024 photos also have local copies (NN.webp, thumb/NN.webp,
    hero md/NN.webp); the page switches to those if Cloudinary cannot be reached. */
 const CDN = "https://res.cloudinary.com/dkj22lm1g/image/upload";
 const LOCAL = /^(hero|history\/intake-3[5-8])\//;
 const url = (f, w) => `${CDN}/f_auto,q_auto,c_limit,w_${w}/sihina/${f}`;
 const sq = (f, w) => `${CDN}/f_auto,q_auto,c_fill,g_auto,w_${w},h_${w}/sihina/${f}`;   // square crop for grid tiles
-const localUrl = (f, w) => !LOCAL.test(f) ? "" : "images/" + (w <= 640 ? f.replace(/([^/]+)$/, "thumb/$1") : w <= 1080 ? f.replace(/([^/]+)$/, "md/$1") : f) + ".webp";
+// inside-project/01–11 are the original SIHINA 2026 photos, also kept locally in images/gallery/
+const localPath = f => /^inside-project\/(0\d|1[01])$/.test(f) ? f.replace("inside-project", "gallery") : LOCAL.test(f) ? f : "";
+const localUrl = (f, w) => (f = localPath(f)) && "images/" + (w <= 640 ? f.replace(/([^/]+)$/, "thumb/$1") : w <= 1080 ? f.replace(/([^/]+)$/, "md/$1") : f) + ".webp";
 const pic = f => ({ thumb: sq(f, 480), mini: sq(f, 160), full: url(f, 1600), thumbFb: localUrl(f, 640), fullFb: localUrl(f, 1600) });
 const seq = (dir, n) => Array.from({length:n}, (_,i) => `${dir}/${String(i+1).padStart(2,"0")}`);
 // If an image fails to load, try its local copy once (returns false when there is none)
