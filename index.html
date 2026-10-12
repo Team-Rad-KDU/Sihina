@@ -60,11 +60,12 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 
-<!-- Performance: everything (fonts, photos) is served from this site, no third-party hosts.
-     Preload the first hero photo (the LCP image, phone or desktop size) and the main fonts.
-     The share image (og-image.jpg) is only fetched by social networks, so it is not preloaded. -->
-<link rel="preload" as="image" type="image/webp" href="images/hero/md/01.webp" media="(max-width: 1080px)" fetchpriority="high">
-<link rel="preload" as="image" type="image/webp" href="images/hero/01.webp" media="(min-width: 1081px)" fetchpriority="high">
+<!-- Performance: photos come from the Cloudinary CDN (resized and converted to AVIF/WebP per browser),
+     fonts, logo and icons from this site. Preload the first hero photo (the LCP image, phone or desktop size)
+     and the main fonts. The share image (og-image.jpg) is only fetched by social networks, so it is not preloaded. -->
+<link rel="preconnect" href="https://res.cloudinary.com">
+<link rel="preload" as="image" href="https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1080/sihina/hero/01" media="(max-width: 1080px)" fetchpriority="high">
+<link rel="preload" as="image" href="https://res.cloudinary.com/dkj22lm1g/image/upload/f_auto,q_auto,c_limit,w_1920/sihina/hero/01" media="(min-width: 1081px)" fetchpriority="high">
 <link rel="preload" as="font" type="font/woff2" href="fonts/bricolage-grotesque-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/atkinson-hyperlegible-latin-400.woff2" crossorigin>
 
@@ -894,7 +895,7 @@ footer a{color:var(--accent-ink)}
       <li class="reveal" style="--d:0"><div class="yr">2017<small>Intake 33</small></div><p><b>Prince College, Maduragama, Nikaweratiya</b><span>Repaired and refurnished the school library.</span><span class="strip" data-intake="33"></span><button type="button" class="more" data-intake="33">Read the story ›</button></p></li>
       <li class="reveal" style="--d:1"><div class="yr">2016<small>Intake 32</small></div><p><b>Sri Sumangala Maha Vidyalaya, Medirigiriya</b><span>Water filtration system, sports equipment and library books.</span><button type="button" class="more" data-intake="32">Read the story ›</button></p></li>
       <li class="reveal" style="--d:0"><div class="yr">2015<small>Intake 31</small></div><p><b>Getamanna South Maha Vidyalaya, Hambantota</b><span>Computer laboratory repair and library refurbishment.</span><span class="strip" data-intake="31"></span><button type="button" class="more" data-intake="31">Read the story ›</button></p></li>
-      <li class="reveal" style="--d:1"><div class="yr">2014<small>Intake 30</small></div><p><b>Hakahinna Maha Vidyalaya</b><span>Water supply, library extension and GCE O/L seminar.</span></p></li>
+      <li class="reveal" style="--d:1"><div class="yr">2014<small>Intake 30</small></div><p><b>Hakahinna Maha Vidyalaya</b><span>Water supply, library extension and GCE O/L seminar.</span><span class="strip" data-intake="30"></span></p></li>
     </ul>
   </div>
 </section>
@@ -1020,25 +1021,35 @@ footer a{color:var(--accent-ink)}
 
 <script>
 /* ===== Images =====
-   All photos are served from this site: images/<folder>/NN.webp (full size, up to 1600px; hero 1920px),
-   images/<folder>/thumb/NN.webp (640px) and images/hero/md/NN.webp (1080px hero for phones and tablets).
-   To add photos, drop WebP files with the same names into those folders and bump the counts below. */
-const url = (f, w) => "images/" + (w <= 640 ? f.replace(/([^/]+)$/, "thumb/$1") : w <= 1080 ? f.replace(/([^/]+)$/, "md/$1") : f);
-const pic = f => ({ thumb: url(f, 640), full: url(f, 1600) });
-const seq = (dir, n) => Array.from({length:n}, (_,i) => `${dir}/${String(i+1).padStart(2,"0")}.webp`);
+   Photos are served from the Cloudinary CDN (cloud "dkj22lm1g"), public IDs sihina/<folder>/NN
+   (e.g. sihina/history/intake-31/05). Cloudinary resizes each one to the size it is shown at and picks
+   the best format (AVIF/WebP) and quality for each browser (f_auto,q_auto).
+   To add photos, upload them to Cloudinary as sihina/<folder>/NN and bump the counts below.
+   The hero and the 2019–2024 photos also have local copies in images/<folder>/ (NN.webp, thumb/NN.webp,
+   hero md/NN.webp); the page switches to those if Cloudinary cannot be reached. */
+const CDN = "https://res.cloudinary.com/dkj22lm1g/image/upload";
+const LOCAL = /^(hero|history\/intake-3[5-8])\//;
+const url = (f, w) => `${CDN}/f_auto,q_auto,c_limit,w_${w}/sihina/${f}`;
+const sq = (f, w) => `${CDN}/f_auto,q_auto,c_fill,g_auto,w_${w},h_${w}/sihina/${f}`;   // square crop for grid tiles
+const localUrl = (f, w) => !LOCAL.test(f) ? "" : "images/" + (w <= 640 ? f.replace(/([^/]+)$/, "thumb/$1") : w <= 1080 ? f.replace(/([^/]+)$/, "md/$1") : f) + ".webp";
+const pic = f => ({ thumb: sq(f, 480), mini: sq(f, 160), full: url(f, 1600), thumbFb: localUrl(f, 640), fullFb: localUrl(f, 1600) });
+const seq = (dir, n) => Array.from({length:n}, (_,i) => `${dir}/${String(i+1).padStart(2,"0")}`);
+// If an image fails to load, try its local copy once (returns false when there is none)
+const fallback = (img, src) => { if(!src || img.dataset.fb) return false; img.dataset.fb = "1"; img.src = src; return true; };
 
 /* Hero background slideshow: put the files in images/hero/ and list them here, in order. */
 // phones and tablets get the 1080px version (must match the preload media queries in <head>)
 const HERO_W = matchMedia("(max-width: 1080px)").matches ? 1080 : 1920;
 const HERO_SLIDES = seq("hero", 5).map(f => url(f, HERO_W));
+const HERO_FB = seq("hero", 5).map(f => localUrl(f, HERO_W));
 const SLIDE_MS = 6000;
 
-/* "Inside the project" photo gallery: images/gallery/ */
-const PHOTOS = seq("gallery", 11).map(pic);
+/* "Inside the project" photo gallery: Cloudinary sihina/inside-project/ */
+const PHOTOS = seq("inside-project", 12).map(pic);
 const SHOW_PROPOSAL_PAGES = false;
 const PAGES = SHOW_PROPOSAL_PAGES ? [1,3,4,5,9,10,11,12,13,14].map(n => ({ thumb: `images/proposal-page-${n}.jpg`, full: `images/proposal-page-${n}.jpg` })) : [];
 
-/* "SIHINA through the years" stories: images/history/intake-NN/ */
+/* "SIHINA through the years" stories and photo strips: Cloudinary sihina/history/intake-NN/ */
 const INTAKES = {
   "38": { kicker:"SIHINA 2024 · Intake 38", title:"Illukovita Primary School", photos:seq("history/intake-38", 11).map(pic), text:[
     "SIHINA 2024 was a community service initiative organized by the students of Intake 38, Department of Radiography and Radiotherapy, Faculty of Allied Health Sciences, General Sir John Kotelawala Defence University, in celebration of World Radiography Day.",
@@ -1055,12 +1066,12 @@ const INTAKES = {
     "SIHINA Intake 36 provided a Reverse Osmosis (RO) water filtration system to Mahindagama Village, Polonnaruwa, where more than 80 families faced difficulties accessing safe drinking water. This initiative helps reduce health risks, promote hygiene, and improve the community’s quality of life.",
     "Led by Intake 36 students, the project reflects their commitment to community service, preventive healthcare, and creating a healthier and more sustainable future for those in need."]},
   "35": { kicker:"SIHINA 2019 · Intake 35", title:"Hanguranketha Gangapalatha MMV", photos:seq("history/intake-35", 6).map(pic), text:[] },
-  "34": { kicker:"SIHINA 2018 · Intake 34", title:"Mahawila Kanishta Vidyalaya, Mahawila", photos:[], text:[
+  "34": { kicker:"SIHINA 2018 · Intake 34", title:"Mahawila Kanishta Vidyalaya, Mahawila", photos:seq("history/intake-34", 14).map(pic), text:[
     "Giving is the greatest act of grace.",
     "The annual celebration of World Radiography Day was organized by the Intake 34 Radiography and Radiotherapy students of General Sir John Kotelawala Defence University for the fifth consecutive year, a tradition initiated by Intake 30.",
     "This year’s celebration was held on 24 February 2019 at Mahawila Kanishta Vidyalaya, Mahawila. The students rebuilt the school library and provided IT facilities for the students.",
     "At the end of the day, they brought a smile to the children’s brightest faces by making their dream a reality."]},
-  "33": { kicker:"SIHINA 2017 · Intake 33", title:"Prince College, Maduragama, Nikaweratiya", photos:[], text:[
+  "33": { kicker:"SIHINA 2017 · Intake 33", title:"Prince College, Maduragama, Nikaweratiya", photos:seq("history/intake-33", 19).map(pic), text:[
     "SIHINA 2017 was a community service initiative organized by the students of Intake 33, Department of Radiography and Radiotherapy, Faculty of Allied Health Sciences, General Sir John Kotelawala Defence University, with the aim of supporting educational development and improving school facilities.",
     "The project was carried out at Prince College, Maduragama, Nikaweratiya, where the students identified the need to improve the school’s library facilities and create a more welcoming learning environment for students.",
     "As part of the initiative, the students repaired and refurnished the school library, enhancing its appearance, functionality, and overall learning environment. These improvements aimed to provide students with a more comfortable and conducive space for reading, studying, and developing their knowledge.",
@@ -1070,9 +1081,10 @@ const INTAKES = {
     "The project was carried out at Sri Sumangala Maha Vidyalaya, Medirigiriya, where the students contributed to meeting essential needs of the school and its students by providing resources to support their health, education, and extracurricular activities.",
     "As part of the initiative, the students donated a water filtration system to support access to clean drinking water, sports equipment to encourage physical activity and teamwork, and library books to enhance learning opportunities and promote reading among students.",
     "Through the dedication and teamwork of Intake 32, SIHINA 2016 aimed to create a healthier and more supportive educational environment for the school community. The project reflects the commitment of KDU Radiography and Radiotherapy students to community service and making a meaningful contribution to society."]},
-  "31": { kicker:"SIHINA 2015 · Intake 31", title:"Getamanna South Maha Vidyalaya, Hambantota", photos:[], text:[
+  "31": { kicker:"SIHINA 2015 · Intake 31", title:"Getamanna South Maha Vidyalaya, Hambantota", photos:seq("history/intake-31", 24).map(pic), text:[
     "The SIHINA project at Getamanna South Maha Vidyalaya, Hambantota, focused on improving the school’s educational facilities and creating a more supportive learning environment for students. As part of the initiative, the students repaired and improved the computer laboratory to support technology-based learning and refurbished the school library to provide a more comfortable and organized space for reading and studying.",
     "Through these efforts, the project aimed to enhance students’ access to educational resources, encourage digital learning, and promote a positive learning experience. The initiative reflects the commitment of KDU Radiography and Radiotherapy students to community service and their dedication to supporting education and creating meaningful changes in local communities."]},
+  "30": { kicker:"SIHINA 2014 · Intake 30", title:"Hakahinna Maha Vidyalaya", photos:seq("history/intake-30", 11).map(pic), text:[] },
 };
 
 const $ = s => document.querySelector(s);
@@ -1166,7 +1178,7 @@ addEventListener("keydown", e => { if(e.key === "Escape") setMenu(false); });
 const GROUPS = [
   { title:"SIHINA 2026", sub:"Urugala Sri Dharmaloka School", photos:PHOTOS },
   { title:"Highlights", sub:"Team Rad KDU and past Sihina moments", photos:seq("hero", 5).map(pic) },
-  ...["38","37","36","35"].map(k => ({ title:INTAKES[k].kicker, sub:INTAKES[k].title, photos:INTAKES[k].photos, caps:INTAKES[k].captions })),
+  ...["38","37","36","35","34","33","31","30"].filter(k => INTAKES[k].photos.length).map(k => ({ title:INTAKES[k].kicker, sub:INTAKES[k].title, photos:INTAKES[k].photos, caps:INTAKES[k].captions })),
 ];
 const GALLERY = GROUPS.flatMap(g => g.photos);
 const ALL = [...GALLERY, ...PAGES];
@@ -1175,9 +1187,9 @@ function fill(el, list, label, offset, caps=[]){
     `<button type="button" class="reveal" style="--d:${i%4}" data-i="${i+offset}" aria-label="Open ${label} ${i+1}">
        ${caps[i] ? `<span class="cap">${caps[i]}</span>` : ""}<img src="${p.thumb}" alt="${label} ${i+1}" loading="lazy" decoding="async">
      </button>`).join("");
-  el.querySelectorAll("img").forEach(img => {
+  el.querySelectorAll("img").forEach((img,i) => {
     const done = () => img.parentElement.classList.add("done");
-    const fail = () => { img.parentElement.classList.add("done","err"); img.remove(); };
+    const fail = () => { if(fallback(img, list[i].thumbFb)) return; img.parentElement.classList.add("done","err"); img.remove(); };
     if(img.complete && img.naturalWidth) done(); else { img.addEventListener("load",done,{once:true}); img.addEventListener("error",fail); }
   });
   el.querySelectorAll(".reveal").forEach(b => io.observe(b));
@@ -1194,10 +1206,11 @@ $("#pagesBlock").hidden = !SHOW_PROPOSAL_PAGES;
 /* ---------- Lightbox ---------- */
 const lb = $("#lightbox"), lbImg = $("#lbImg"), lbCount = $("#lbCount");
 let cur = 0, LIST = ALL;
+lbImg.addEventListener("error", () => fallback(lbImg, LIST[cur] && LIST[cur].fullFb));
 function show(i, animate=true){
   if(!LIST.length) return;
   cur = (i + LIST.length) % LIST.length;
-  const set = () => { lbImg.src = LIST[cur].full; lbImg.alt = `Image ${cur+1} of ${LIST.length}`; lbCount.textContent = `${cur+1} / ${LIST.length}`; };
+  const set = () => { delete lbImg.dataset.fb; lbImg.src = LIST[cur].full; lbImg.alt = `Image ${cur+1} of ${LIST.length}`; lbCount.textContent = `${cur+1} / ${LIST.length}`; };
   if(!animate || !MOTION){ set(); return; }
   lbImg.classList.add("swap");
   setTimeout(() => { set(); lbImg.onload = () => lbImg.classList.remove("swap"); if(lbImg.complete) lbImg.classList.remove("swap"); }, 150);
@@ -1232,9 +1245,9 @@ document.querySelectorAll(".strip[data-intake]").forEach(strip => {
   strip.setAttribute("role", "list"); strip.setAttribute("aria-label", d.title + " photos");
   strip.innerHTML = d.photos.map((p,i) =>
     `<button type="button" role="listitem" data-i="${i}" aria-label="Open ${d.title} photo ${i+1} of ${d.photos.length}">
-       ${d.captions && d.captions[i] ? `<span class="cap">${d.captions[i]}</span>` : ""}<img src="${p.thumb}" alt="${d.kicker} – ${d.title} photo ${i+1}" loading="lazy" decoding="async">
+       ${d.captions && d.captions[i] ? `<span class="cap">${d.captions[i]}</span>` : ""}<img src="${p.mini}" alt="${d.kicker} – ${d.title} photo ${i+1}" width="72" height="72" loading="lazy" decoding="async">
      </button>`).join("");
-  strip.querySelectorAll("img").forEach(img => img.addEventListener("error", () => img.parentElement.remove()));
+  strip.querySelectorAll("img").forEach((img,i) => img.addEventListener("error", () => fallback(img, d.photos[i].thumbFb) || img.parentElement.remove()));
   strip.addEventListener("click", e => {
     const b = e.target.closest("button[data-i]"); if(!b) return;
     LIST = d.photos; show(+b.dataset.i, false);
@@ -1301,7 +1314,7 @@ $("#copyBtn").onclick = async (e) => {
   function load(n){
     if(n >= HERO_SLIDES.length) return;
     const img = new Image();
-    img.onerror = () => load(n + 1);
+    img.onerror = () => { if(!fallback(img, HERO_FB[n])) load(n + 1); };
     img.onload = () => {
       const li = document.createElement("li");
       li.style.backgroundImage = `url("${img.src}")`; li.dataset.n = n;
